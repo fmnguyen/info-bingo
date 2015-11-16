@@ -55,6 +55,7 @@ sio.set('authorization', function (handshakeData, accept) {
 		handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
 		handshakeData.sessionID = cookieParser.signedCookie(handshakeData.cookie['express.sid'], 'thisistheinfoclassoftheyear'); 
 		if(handshakeData.cookie['express.sid'] == handshakeData.sessionID) {
+			debug('Cookie is invalid');
 			return accept('Cookie is invalid', false);
 		} 
 	} else {

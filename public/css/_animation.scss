@@ -28,11 +28,18 @@
 	animation-fill-mode: both;
 }
 
+.animatedSlow {
+	-webkit-animation-duration: 1.3s;
+	animation-duration: 1.3s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+
 @-webkit-keyframes fadeInUp {
 	0% {
 		opacity: 0;
-		-webkit-transform: translate3d(0, 3%, 0);
-		transform: translate3d(0, 3%, 0);
+		-webkit-transform: translate3d(0, 40%, 0);
+		transform: translate3d(0, 40%, 0);
 	}
 
 	100% {
@@ -45,8 +52,8 @@
 @keyframes fadeInUp {
 	0% {
 		opacity: 0;
-		-webkit-transform: translate3d(0, 5%, 0);
-		transform: translate3d(0, 5%, 0);
+		-webkit-transform: translate3d(0, 40%, 0);
+		transform: translate3d(0, 40%, 0);
 	}
 
 	100% {

@@ -50,9 +50,14 @@
 }
 
 body {
-
+	background: url('../assets/geometry.png');
+	background-repeat: repeat;
+	background-size: 650px 650px
 }
 
+.selected {
+	background-color: #EF7960 !important;
+}
 
 .login {
 	@include center;
@@ -63,6 +68,7 @@ body {
 			padding-bottom: 5px;
 			border: none;
 			outline: none;
+			background-color: transparent;
 			border-bottom: 1px solid #999;
 			height: 40px;
 			width: 400px;
@@ -84,7 +90,7 @@ $grid-spacing: 15px;
 	position: relative;
 	display: none;
 	.game-container {
-		background-color: rgba(164, 124, 160, 0.8);
+		background-color: rgba(255,	243, 207, 1.0);
 		padding: $grid-spacing;
 		border-radius: 3px;
 		float: left;
@@ -111,7 +117,7 @@ $grid-spacing: 15px;
 		float: left;
     	border-radius: 3px;
 		margin-right: $grid-spacing;
-		background-color: #F9A781;
+		background-color: #8BB6B0;
 		&:last-child {margin-right: 0;}
 	}
 }
@@ -154,7 +160,7 @@ $grid-spacing: 15px;
 		height: 100px;
 		position: fixed;
 		bottom: 0;
-		border-top: 1px solid #999;
+		border-top: 1px solid #a1a1a1;
 		background-color: #f0f0f0;
 
 		#submit-message {
