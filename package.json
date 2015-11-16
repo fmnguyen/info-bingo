@@ -1,10 +1,11 @@
 {
   "name": "bingo",
   "version": "0.1.0",
-  "description": "A bingo game based on things our instructos say",
+  "description": "A bingo game based on things our instructors say",
   "author": "Francis Nguyen <fm.nguyen937@gmail.com>",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "DEBUG=http,socket.io node server.js"
   },
   "keywords": [
     "bingo",
@@ -14,9 +15,22 @@
     "uw",
     "greghay"
   ],
-  
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fmnguyen/info-bingo.git"
+  },
+  "homepage": "https://github.com/fmnguyen/info-bingo",
   "license": "MIT",
+  "devDependencies": {
+    "jquery": "^2.1.3",
+    "socket.io": "latest"
+  },
   "dependencies": {
-    "socket.io": "^1.3.7"
+    "cookie": "^0.2.3",
+    "cookie-parser": "^1.4.0",
+    "debug": "^2.2.0",
+    "express": "^4.13.3",
+    "express-session": "^1.12.1",
+    "socket.io": "latest"
   }
 }

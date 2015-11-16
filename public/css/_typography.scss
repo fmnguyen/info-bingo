@@ -1,0 +1,56 @@
+@mixin breakpoint($point) {
+	@media only screen and (min-width: $point) {
+		@content;
+	}
+}
+
+html {
+	font-size: 100%;
+}
+
+h1, h2, h3, h4, h5, h6, p, a, li, div, span {
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Verdana, sans-serif;
+	font-style: normal;
+	font-weight: 300;
+	color: black;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+}
+
+i {
+	font-style: italic;
+}
+
+h1 {
+	font-size: 2.5em;
+	font-weight: 700;
+	font-style: normal;
+	color: #3D417D;
+}
+
+h2 {
+	font-style: normal;
+	font-size: 2.0em;
+}
+
+p {
+	font-style: normal;
+	font-size: 0.8em;
+	line-height: 1.2em;
+}
+
+
+strong {
+	font-weight: 700;
+}
+
+h3, h4, h5, h6 {
+	font-weight: 400; 
+}
+
+span {
+	font-size: 1.0em;
+	font-weight: 700;
+}

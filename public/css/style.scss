@@ -1,0 +1,180 @@
+/* 
+ * Author: Francis Nguyen, www.fmnguyen.com
+ */
+
+@import '_normalize.scss';
+@import '_typography.scss';
+@import '_animation.scss';
+
+@mixin breakpoint($point) {
+	@media only screen and (min-width: $point) {
+		@content;
+	}
+}
+
+@mixin horizontal-center {
+	position: absolute;
+	left: 50%;
+	@include transform(translate(-50%, 0));
+}
+
+@mixin vertical-center {
+	position: aboslute; 
+	top: 50%;
+	@include transform(translate(0, -50%));
+}
+
+@mixin center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	@include transform(translate(-50%, -50%));
+}
+
+/* Clearfix */
+.clearfix {
+  zoom:1;
+  &:before, &:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    @extend .clearfix;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.hidden {
+	display: none;
+}
+
+body {
+
+}
+
+
+.login {
+	@include center;
+	#name-input {
+		margin-top: 15px;
+		input, input:focus {
+			text-align: center;
+			padding-bottom: 5px;
+			border: none;
+			outline: none;
+			border-bottom: 1px solid #999;
+			height: 40px;
+			width: 400px;
+			margin: 5px auto;
+			display: block;
+			font-size: 1.75em;
+		}
+	}
+
+}
+
+$grid-container-width: 600px;
+$grid-spacing: 15px;
+
+.game-content {
+	width: 80%;
+	height: 100vh;
+	float: left;
+	position: relative;
+	display: none;
+	.game-container {
+		background-color: rgba(164, 124, 160, 0.8);
+		padding: $grid-spacing;
+		border-radius: 3px;
+		float: left;
+		@extend .clearfix;
+		@include center;
+		.grid-container {
+			width: $grid-container-width;
+			height: $grid-container-width;
+			@extend .clearfix;
+		}
+	}
+}
+
+.grid-row {
+	float: left;
+	margin-bottom: $grid-spacing;
+	&:last-child {margin-bottom: 0;}
+	@extend .clearfix;
+
+	.grid-cell {
+		height: $grid-container-width / 5 - $grid-spacing * 4 / 5;
+		width: $grid-container-width / 5 - $grid-spacing * 4 / 5;
+		display: block;
+		float: left;
+    	border-radius: 3px;
+		margin-right: $grid-spacing;
+		background-color: #F9A781;
+		&:last-child {margin-right: 0;}
+	}
+}
+
+.chat-container {
+	min-height: 100vh;
+	height: auto;
+	width: 20%;
+	position: relative;
+	float: right;
+	background-color: #f0f0f0;
+	display: none;
+
+	#messages {
+		width: 100%;
+		position: relative;
+
+		padding-top: 50px;
+		padding-bottom: 100px;
+
+	    -webkit-margin-start: 0;
+	    -webkit-margin-after: 0;
+	    -webkit-padding-start: 0;
+	    -webkit-margin-before: 0;
+
+		li {
+			width: 85%;
+			margin: 0 auto;
+			display: block;
+			list-style: none;
+			p {
+				max-width: 100%;
+				margin: 10px 0;
+			}
+		}
+	}
+
+	.message-input {
+		width: 20vw;
+		height: 100px;
+		position: fixed;
+		bottom: 0;
+		border-top: 1px solid #999;
+		background-color: #f0f0f0;
+
+		#submit-message {
+			height: 60px;
+			width: 85%;
+			display: block;
+			margin-left: 7.5%;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			border: none;
+			color: rgba(10, 10, 10, 0.7);
+			font-size: 0.8em;  
+			padding: 7px;
+
+		    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+		    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+		    box-sizing: border-box;         /* Opera/IE 8+ */
+
+			&:focus {outline: none;}
+		}
+	}
+}
+
