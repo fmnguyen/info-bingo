@@ -7,20 +7,38 @@ var http = require('http'),
 var	debug = require('debug')('socket.io'),
 	debug_http = require('debug')('http');
 
-
 // own modules
 var Packet = require('./modules/packet'), // protocol for socket connections
 	User = require('./modules/user'), // User object, see ./module/user.js for more information
 	userStore = require('./modules/userStore'), // stores all the users and their sockets
 	users = new userStore();
 
-
 // Dependencies after Express migrated to 4.x.x, more information @ https://github.com/senchalabs/connect#middleware
 var cookieParser = require('cookie-parser'),
 	session = require('express-session'),
-	app = express();
+	app = express(),
+	port = 1234;
 
-var port = 1234;
+// Bcrypt hashing of admin password found at route /admin
+var bcrypt = require('bcryptjs'),
+	SALT_FACTOR = 10,
+	secret = '$2a$10$9bmBtYeEG0FLED/g7ujBUeLhgRYvu70iWlBlCyXBE3EALsYN.3ASi';
+
+/*
+ * If you want to set a new password, uncomment code and run server.js
+ * Change var secret to the hash, and recomment the code
+ * 
+bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
+	if (err) return(err);
+    bcrypt.hash(secret, salt, function(err, hash) {
+    	if (err) return next(err);
+    	secret = hash;
+    	console.log('Hashed Password: ' + hash);
+    });
+});
+*/
+
+process.env.NODE_ENV = process.env.NODE_ENV || 'local';
 
 // Configures our express app to save cookies and sessions
 app.use(cookieParser());
@@ -40,6 +58,14 @@ app.get('/', function(req, res){
 		dotfiles: 'allow'
 	}
 	res.sendFile(__dirname + '/index.html', options);
+});
+
+// Route for /public/admin.html
+app.get('/admin', function(req, res) {
+	var options = {
+		dotfiles: 'allow'
+	}
+	res.sendFile(__dirname + '/public/admin.html', options);	
 });
 
 var server = http.createServer(app);
@@ -68,17 +94,12 @@ sio.sockets.on('connection', function (socket){
 
 	debug('Connection made. SessionID: ' + socket.request.sessionID);
 
-	// when someone sends a chat message, emit the data to all users (except for sending client) and update
-	socket.on(Packet.CHAT_MESSAGE, function (data) {
-		debug('Received CHAT_MESSAGE Packet');
-		var registeredUser = users.getUserBySocketID(socket.id);
-		if (registeredUser && registeredUser === data.user.name) {
-			socket.emit(Packet.CHAT_MESSAGE, data);
-			socket.broadcast.emit(Packet.CHAT_MESSAGE, data);
-		}
-	});
-
-	// whenever a new user is added, add them to list of users and then authorize using cookie handshake
+	/*
+	 * @param data: { userName: '', color: '' } see /modules/packet.js for full protocol
+	 * @emits data: { err: 'description of error', errCode: # } if error
+	 * @emits data: { user: newUserObject } if successful
+	 * Takes an authorization request from a user and allows them to join the room
+	 */ 
 	socket.on(Packet.USER_AUTH_NEW, function (data) {
 		debug('Received USER_AUTH_NEW Packet from: ' + socket.request.sessionID);
         if(users.hasUser(data.userName)) {
@@ -90,10 +111,51 @@ sio.sockets.on('connection', function (socket){
         } else {
         	var newUser = new User(data.userName, data.color, socket.id);
         	users.addUser(newUser);
-
-        	socket.emit(Packet.USER_AUTH_RESPONSE, { user: newUser });
-        	socket.broadcast.emit(Packet.USER_JOIN, { user: newUser });
+        	socket.emit(Packet.USER_AUTH_RESPONSE, { 
+        		user: newUser, 
+        		session: socket.request.session 
+        	});
+        	socket.broadcast.emit(Packet.USER_JOIN, { 
+        		user: newUser 
+        	});
         }
+	});
+
+	/*
+	 * @param data { password: '' } see /modules/packet.js for full protocol
+	 * @emits data: { err: 'description of error', errCode: # } if error
+	 * @emits data: { success: boolean } if successful
+	 * Takes an authorization request an admin with the supplied password
+	 */ 
+	socket.on(Packet.ADMIN_AUTH_NEW, function (data) {
+		debug('Received ADMIN_AUTH_NEW Packet from: ' + socket.request.sessionID);
+		bcrypt.compare(data.password, secret, function(err, res) {
+			if(err) return err;
+			if(res == false) {
+				socket.emit(Packet.ADMIN_AUTH_RESPONSE, { 
+					err: 'Incorrect Password', 
+					errCode: 1 
+				});
+			} else {
+				socket.emit(Packet.ADMIN_AUTH_RESPONSE, { 
+					success: true 
+				});
+			}
+		});
+	});
+
+	/*
+	 * @param data: { user: userObject, msg: messageText, time: timeStamp } see /modules/packet.js for full protocol
+	 * @emits data: { user: userObject, msg: messageText, time: timeStamp }
+	 * Represents a chat message and emits the message to all in the room (including the admin)
+	 */
+	socket.on(Packet.CHAT_MESSAGE, function (data) {
+		//debug('Received CHAT_MESSAGE Packet'); // this will go crazy in production
+		var registeredUser = users.getUserBySocketID(socket.id);
+		if (registeredUser && registeredUser === data.user.name) {
+			socket.emit(Packet.CHAT_MESSAGE, data);
+			socket.broadcast.emit(Packet.CHAT_MESSAGE, data);
+		}
 	});
 
 	// whenever someone requests that their tiles are correct, send the check to the master

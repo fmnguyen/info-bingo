@@ -9,10 +9,10 @@ html {
 }
 
 h1, h2, h3, h4, h5, h6, p, a, li, div, span {
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Verdana, sans-serif;
+	font-family: 'Lato', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Verdana, sans-serif;
 	font-style: normal;
-	font-weight: 300;
-	color: black;
+	font-weight: 400;
+	color: white;
     -webkit-margin-before: 0;
     -webkit-margin-after: 0;
     -webkit-margin-start: 0;
@@ -27,20 +27,21 @@ h1 {
 	font-size: 2.5em;
 	font-weight: 700;
 	font-style: normal;
-	color: #8984BF;
+	color: white;
 }
 
 h2 {
 	font-style: normal;
-	font-size: 2.0em;
+	font-size: 1.5em;
+	color: white;
 }
 
 p {
 	font-style: normal;
 	font-size: 0.8em;
 	line-height: 1.2em;
+	color: rgb(52, 73, 94);
 }
-
 
 strong {
 	font-weight: 700;

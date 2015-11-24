@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Bingo Info Style</title>
+    <title>Bingo Info Style - Admin Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
     <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
@@ -12,21 +12,19 @@
 </head>
 <body>
 	<div class='login'>
-		<h1 class='fadeInUp animatedSlow'>What's your nickname?</h1>
-		<div id="name-input" class='fadeInUp animatedSlow'>
-			<input id='submit-username' type= 'text' name='username' maxlength='15' autocomplete='off'>
+		<h1 class='fadeInUp animatedSlow'>Hey Admin!</h1>
+		<h2 class='fadeInUp animatedSlow'>Login</h2>
+		<div id="admin-login" class='fadeInUp animatedSlow'>
+			<input class='admin-password' type='password' name='password'>
 		</div>
 	</div>
 	<div class='game-content'>
-		<img class='img-header' src='/assets/am.png' alt'Bingo Professors'>
-		<div class='game-container'>
-			<div class='grid-container'>
-			</div>
+		<div class='active-panels'>
 		</div>
 	</div>
 	<div class='chat-container'>
 		<div class='chat-header'>
-			<span>BINGO</span>
+			<span>ADMIN</span>
 		</div>
 		<ul id='messages'></ul>
 		<div class='message-input'>
@@ -36,7 +34,7 @@
 	<script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/socketHandler.js"></script>
-    <script src="/js/bingo.js"></script>
     <script src="/js/login.js"></script>
+    <script src="/js/bingo.js"></script>
 </body>
 </html>

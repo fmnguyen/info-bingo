@@ -363,10 +363,10 @@ html {
   font-size: 100%; }
 
 h1, h2, h3, h4, h5, h6, p, a, li, div, span {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Verdana, sans-serif;
+  font-family: 'Lato', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Verdana, sans-serif;
   font-style: normal;
-  font-weight: 300;
-  color: black;
+  font-weight: 400;
+  color: white;
   -webkit-margin-before: 0;
   -webkit-margin-after: 0;
   -webkit-margin-start: 0;
@@ -379,16 +379,18 @@ h1 {
   font-size: 2.5em;
   font-weight: 700;
   font-style: normal;
-  color: #8984BF; }
+  color: white; }
 
 h2 {
   font-style: normal;
-  font-size: 2.0em; }
+  font-size: 1.5em;
+  color: white; }
 
 p {
   font-style: normal;
   font-size: 0.8em;
-  line-height: 1.2em; }
+  line-height: 1.2em;
+  color: #34495e; }
 
 strong {
   font-weight: 700; }
@@ -421,8 +423,8 @@ span {
 @-webkit-keyframes fadeInUp {
   0% {
     opacity: 0;
-    -webkit-transform: translate3d(0, 40%, 0);
-    transform: translate3d(0, 40%, 0); }
+    -webkit-transform: translate3d(0, 20%, 0);
+    transform: translate3d(0, 20%, 0); }
   100% {
     opacity: 1;
     -webkit-transform: none;
@@ -430,8 +432,8 @@ span {
 @keyframes fadeInUp {
   0% {
     opacity: 0;
-    -webkit-transform: translate3d(0, 40%, 0);
-    transform: translate3d(0, 40%, 0); }
+    -webkit-transform: translate3d(0, 20%, 0);
+    transform: translate3d(0, 20%, 0); }
   100% {
     opacity: 1;
     -webkit-transform: none;
@@ -474,10 +476,13 @@ span {
 body {
   background: url("../assets/geometry.png");
   background-repeat: repeat;
-  background-size: 650px 650px; }
+  background-size: 500px 500px;
+  background-color: rgba(76, 87, 101, 0.9);
+  background-attachment: fixed;
+  overflow-x: hidden; }
 
 .selected {
-  background-color: #EF7960 !important; }
+  background-color: #de6868 !important; }
 
 .login {
   position: absolute;
@@ -487,7 +492,14 @@ body {
   -moz-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%); }
+  transform: translate(-50%, -50%);
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease; }
+  .login h2 {
+    margin-top: 10px; }
   .login #name-input {
     margin-top: 15px; }
     .login #name-input input, .login #name-input input:focus {
@@ -496,24 +508,43 @@ body {
       border: none;
       outline: none;
       background-color: transparent;
-      border-bottom: 1px solid #999;
+      border-bottom: 1px solid #FFF;
       height: 40px;
       width: 400px;
       margin: 5px auto;
       display: block;
       font-size: 1.75em; }
+  .login .error {
+    padding-top: 5px;
+    color: #de6868;
+    font-size: 1.25em;
+    font-weight: bold; }
+  .login #admin-login {
+    color: black;
+    margin-top: 5px; }
+    .login #admin-login input, .login #admin-login input:focus {
+      text-align: left;
+      padding-bottom: 5px;
+      border: none;
+      border-radius: 5px;
+      padding-left: 10px;
+      height: 30px;
+      width: 400px;
+      margin: 5px auto;
+      display: block; }
 
 .game-content {
   width: 80%;
   height: 100vh;
   float: left;
-  position: relative;
+  position: fixed;
   display: none; }
   .game-content .game-container {
     background-color: #fff3cf;
     padding: 15px;
     border-radius: 3px;
     float: left;
+    position: fixed;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -521,10 +552,21 @@ body {
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     -o-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%); }
+    transform: translate(-50%, -50%);
+    top: 57% !important; }
     .game-content .game-container .grid-container {
       width: 600px;
       height: 600px; }
+  .game-content .img-header {
+    position: fixed;
+    top: 10px;
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0);
+    -moz-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    transform: translate(-50%, 0); }
 
 .grid-row {
   float: left;
@@ -535,25 +577,62 @@ body {
     height: 108px;
     width: 108px;
     display: block;
+    position: relative;
     float: left;
     border-radius: 3px;
     margin-right: 15px;
-    background-color: #8BB6B0; }
+    background-color: #8BB6B0;
+    text-align: center; }
     .grid-row .grid-cell:last-child {
       margin-right: 0; }
+    .grid-row .grid-cell:hover {
+      cursor: pointer; }
+  .grid-row .cell-data {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 90%;
+    font-size: 0.875em; }
+
+.slideIn {
+  -webkit-transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+  -moz-transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+  -ms-transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+  -o-transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+  margin-right: 0 !important;
+  right: 0 !important; }
 
 .chat-container {
   min-height: 100vh;
   height: auto;
   width: 20%;
-  position: relative;
   float: right;
-  background-color: #f0f0f0;
-  display: none; }
+  background-color: white;
+  margin-right: -20vw; }
+  .chat-container .chat-header {
+    height: 50px;
+    width: 20vw;
+    border-bottom: 2px solid #a1a1a1;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    right: -20vw;
+    background-color: white;
+    z-index: 1; }
+    .chat-container .chat-header span {
+      font-size: 2.25em;
+      color: #818892; }
   .chat-container #messages {
     width: 100%;
     position: relative;
-    padding-top: 50px;
+    padding-top: 60px;
     padding-bottom: 100px;
     -webkit-margin-start: 0;
     -webkit-margin-after: 0;
@@ -571,20 +650,22 @@ body {
     width: 20vw;
     height: 100px;
     position: fixed;
-    bottom: 0;
-    border-top: 1px solid #a1a1a1;
-    background-color: #f0f0f0; }
+    bottom: 0px;
+    right: -20vw;
+    border-top: 2px solid #a1a1a1;
+    background-color: white; }
     .chat-container .message-input #submit-message {
-      height: 60px;
-      width: 85%;
+      height: 70px;
+      width: 90%;
       display: block;
-      margin-left: 7.5%;
-      margin-top: 20px;
-      margin-bottom: 20px;
+      margin-left: 5%;
+      margin-top: 15px;
+      margin-bottom: 15px;
       border: none;
       color: rgba(10, 10, 10, 0.7);
       font-size: 0.8em;
-      padding: 7px;
+      padding: 8px;
+      background-color: #f3f3f3;
       -webkit-box-sizing: border-box;
       /* Safari/Chrome, other WebKit */
       -moz-box-sizing: border-box;

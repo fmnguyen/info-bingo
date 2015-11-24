@@ -26,6 +26,7 @@
     "socket.io": "latest"
   },
   "dependencies": {
+    "bcryptjs": "^2.3.0",
     "cookie": "^0.2.3",
     "cookie-parser": "^1.4.0",
     "debug": "^2.2.0",
