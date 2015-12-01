@@ -31,6 +31,10 @@ Routes at the root (/public) are automatically re-directed to /public/index.html
 ##### Admin Password:
 The password is hashed in /server.js, but in plain-text is root. Make sure to change this when you move to production! 
 
+TODO
+=====
+Add a session store to save user sessions 
+Save cookie data so users can easily join after disconnect
 
 License 
 =====
