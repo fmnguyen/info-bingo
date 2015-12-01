@@ -16,3 +16,22 @@ npm install
 ```sh
 npm start
 ```
+
+Routes 
+=====
+The Express server automatically serves files located in /public/
+
+##### There are two main routes:
+```sh
+/public/
+/public/admin.html
+```
+Routes at the root (/public) are automatically re-directed to /public/index.html
+
+##### Admin Password:
+The password is hashed in /server.js, but in plain-text is root. Make sure to change this when you move to production! 
+
+
+License 
+=====
+[MIT](https://github.com/expressjs/session/blob/master/LICENSE)
