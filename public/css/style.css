@@ -497,7 +497,10 @@ body {
   -moz-transition: all 0.5s ease;
   -ms-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
-  transition: all 0.5s ease; }
+  transition: all 0.5s ease;
+  text-align: center; }
+  .login h1 {
+    display: inline; }
   .login h2 {
     margin-top: 10px; }
   .login #name-input {
@@ -510,7 +513,7 @@ body {
       background-color: transparent;
       border-bottom: 1px solid #FFF;
       height: 40px;
-      width: 400px;
+      width: 450px;
       margin: 5px auto;
       display: block;
       font-size: 1.75em; }
@@ -554,8 +557,12 @@ body {
     transform: translate(-50%, -50%);
     top: 57% !important; }
     .game-content .game-container .grid-container {
-      width: 600px;
-      height: 600px; }
+      width: 500px;
+      height: 500px; }
+      @media only screen and (min-width: 1024px) {
+        .game-content .game-container .grid-container {
+          width: 600px;
+          height: 600px; } }
   .game-content .img-header {
     position: fixed;
     top: 10px;
@@ -573,8 +580,8 @@ body {
   .grid-row:last-child, .admin-grid-row:last-child {
     margin-bottom: 0; }
   .grid-row .grid-cell, .admin-grid-row .grid-cell, .admin-grid-row .admin-grid-cell {
-    height: 108px;
-    width: 108px;
+    height: 88px;
+    width: 88px;
     display: block;
     position: relative;
     float: left;
@@ -582,6 +589,10 @@ body {
     margin-right: 15px;
     background-color: #8BB6B0;
     text-align: center; }
+    @media only screen and (min-width: 1024px) {
+      .grid-row .grid-cell, .admin-grid-row .grid-cell, .admin-grid-row .admin-grid-cell {
+        height: 108px;
+        width: 108px; } }
     .grid-row .grid-cell:last-child, .admin-grid-row .grid-cell:last-child, .admin-grid-row .admin-grid-cell:last-child {
       margin-right: 0; }
     .grid-row .grid-cell:hover, .admin-grid-row .grid-cell:hover, .admin-grid-row .admin-grid-cell:hover {
@@ -597,10 +608,13 @@ body {
     transform: translate(-50%, -50%);
     text-align: center;
     width: 90%;
-    font-size: 0.875em; }
+    font-size: 0.75em; }
+    @media only screen and (min-width: 1024px) {
+      .grid-row .cell-data, .admin-grid-row .cell-data, .admin-grid-row .admin-cell-data {
+        font-size: 0.875em; } }
 
 .admin-tiles-container {
-  width: 95%;
+  width: 90%;
   height: auto;
   position: absolute;
   top: 50%;
@@ -648,8 +662,14 @@ body {
     background-color: white;
     z-index: 1; }
     .chat-container .chat-header span {
-      font-size: 2.25em;
+      display: block;
+      padding-top: 8px;
+      font-size: 1.75em;
       color: #818892; }
+      @media only screen and (min-width: 1024px) {
+        .chat-container .chat-header span {
+          font-size: 2.25em;
+          padding-top: 0px; } }
   .chat-container #messages {
     width: 100%;
     position: relative;

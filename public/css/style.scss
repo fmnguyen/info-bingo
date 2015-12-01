@@ -19,7 +19,7 @@
 }
 
 @mixin vertical-center {
-	position: aboslute; 
+	position: absolute; 
 	top: 50%;
 	@include transform(translate(0, -50%));
 }
@@ -65,6 +65,10 @@ body {
 .login {
 	@include center;
 	@include transition(all 0.5s ease);
+	text-align: center;
+	h1 {
+		display: inline;
+	}
 	h2 {
 		margin-top: 10px;
 	}
@@ -78,7 +82,7 @@ body {
 			background-color: transparent;
 			border-bottom: 1px solid #FFF;
 			height: 40px;
-			width: 400px;
+			width: 450px;
 			margin: 5px auto;
 			display: block;
 			font-size: 1.75em;
@@ -107,7 +111,8 @@ body {
 	}
 }
 
-$grid-container-width: 600px;
+$grid-container-width: 500px;
+$grid-container-width-lg: 600px;
 $grid-spacing: 15px;
 
 .game-content {
@@ -127,6 +132,10 @@ $grid-spacing: 15px;
 		.grid-container {
 			width: $grid-container-width;
 			height: $grid-container-width;
+			@include breakpoint(1024px){			
+				width: $grid-container-width-lg;
+				height: $grid-container-width-lg;
+			}
 			@extend .clearfix;
 		}
 	}
@@ -146,6 +155,10 @@ $grid-spacing: 15px;
 	.grid-cell {
 		height: $grid-container-width / 5 - $grid-spacing * 4 / 5;
 		width: $grid-container-width / 5 - $grid-spacing * 4 / 5;
+		@include breakpoint(1024px) {			
+			height: $grid-container-width-lg / 5 - $grid-spacing * 4 / 5;
+			width: $grid-container-width-lg / 5 - $grid-spacing * 4 / 5;
+		}
 		display: block;
 		position: relative;
 		float: left;
@@ -161,12 +174,16 @@ $grid-spacing: 15px;
 		@include center;
 		text-align: center;
 		width: 90%;
-		font-size: 0.875em;
+		font-size: 0.75em;
+		@include breakpoint(1024px) {
+			font-size: 0.875em;
+		}
+		
 	}
 }
 
 .admin-tiles-container {
-	width: 95%;
+	width: 90%;
 	height: auto;
 	@include center;
 }
@@ -210,7 +227,13 @@ $grid-spacing: 15px;
 		background-color: white;
 		z-index: 1;
 		span {
-			font-size: 2.25em;
+			display: block;
+			padding-top: 8px;
+			font-size: 1.75em;
+			@include breakpoint (1024px) {
+				font-size: 2.25em;
+				padding-top: 0px;
+			}
 			color: #818892;
 		}
 	}

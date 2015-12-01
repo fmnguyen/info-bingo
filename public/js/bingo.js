@@ -92,7 +92,7 @@ function createGameGrid() {
 }
 
 function createAdminGrid() {
-	var adminRowLength = 9;
+	var adminRowLength = 8;
 	var $grid = $('.admin-grid-container');
 	var used = new Array();
 	for(var i = 0; i < Math.floor(entries.length / adminRowLength); i++) {
@@ -101,7 +101,7 @@ function createAdminGrid() {
 			used.push({ 'tileID': i * adminRowLength + j, 'selected': false });
 			// Construct divs that hold the tiles
 			$cell = $('<div>', { class: 'admin-grid-cell'});
-			$data = $('<span>', {class: 'admin-cell-data', text: entries[i * 9 + j] })
+			$data = $('<span>', {class: 'admin-cell-data', text: entries[i * adminRowLength + j] })
 			$cell.click(function (){ // add click handler to update tile
 				updateAdminTile($(this));
 			});
