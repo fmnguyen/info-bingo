@@ -121,7 +121,6 @@ $grid-spacing: 15px;
 		padding: $grid-spacing;
 		border-radius: 3px;
 		float: left;
-		position: fixed;
 		@extend .clearfix;
 		@include center;
 		top: 57% !important;
@@ -163,6 +162,27 @@ $grid-spacing: 15px;
 		text-align: center;
 		width: 90%;
 		font-size: 0.875em;
+	}
+}
+
+.admin-tiles-container {
+	width: 95%;
+	height: auto;
+	@include center;
+}
+
+.admin-grid-container {	
+	@extend .clearfix;
+}
+
+.admin-grid-row {
+	@extend .grid-row;
+	.admin-grid-cell {
+		@extend .grid-cell;
+	}
+	.admin-cell-data {
+		@include center;
+		@extend .cell-data;	
 	}
 }
 

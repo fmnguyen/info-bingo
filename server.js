@@ -73,6 +73,7 @@ server.listen((process.env.PORT || port), function() {
 	debug_http('Started connect web server running on localhost:' + (process.env.PORT || port));
 });
 var sio = io.listen(server);
+var validTiles = [];
 
 // Configures authorization scheme during initial handshake to save session data
 sio.set('authorization', function (handshakeData, accept) {
@@ -137,9 +138,15 @@ sio.sockets.on('connection', function (socket){
 					errCode: 1 
 				});
 			} else {
+				var newUser = new User(data.userName, data.color, socket.id);
+				users.addUser(newUser);
 				socket.emit(Packet.ADMIN_AUTH_RESPONSE, { 
-					success: true 
+					success: true,
+					user: newUser
 				});
+	        	socket.broadcast.emit(Packet.USER_JOIN, { 
+	        		user: newUser 
+	        	});
 			}
 		});
 	});
@@ -158,16 +165,41 @@ sio.sockets.on('connection', function (socket){
 		}
 	});
 
-	// whenever someone requests that their tiles are correct, send the check to the master
-	// authorization scheme
-	socket.on('master_check', function (data) {
-
+	/*
+	 * @param data: { tiles: [int] } see /modules/packet.js for full protocol
+	 * @emits data: { err: 'description of error', tiles: [incorrectlySelectedTiles] } if error
+	 * @emits data: { isWinner: boolean } if successful
+	 * Checks the passed tiles against valid tiles. Emits if the player is a winner or not
+	 */
+	socket.on(Packet.USER_CHECK_GAME, function (data) {
+		var wrongTiles = [];
+		for(var i = 0; i < data.tiles.length; i++) {
+			if(validTiles.indexOf(data.tiles[i]) === -1) { // if the tile isn't a valid tile
+				wrongTiles.push(data.tiles[i]);
+			}
+		}
+		if(wrongTiles.length > 0) { // user has some incorrect tiles
+			socket.emit(Packet.USER_CHECK_RESPONSE, {
+				err: '',
+				tiles: wrongTiles
+			});
+		} else { // user has no wrong tiles, is a winner
+			socket.emit(Packet.USER_CHECK_RESPONSE, {
+				isWinner: true
+			});			
+		}
 	});
 
-	// update all players based on which tiles have been called or completed
-	// 
-	socket.on('update_players', function (data) {
-
+	/*
+	 * @param data: { addTile: boolean, tileIndex: intTileIndex} see /modules/packet.js for full protocol
+	 * Represents the admin adding/removing valid tiles for the game
+	 */
+	socket.on(Packet.ADMIN_SELECT_TILE, function (data) {
+		if(data.addTile) { // if adding tiles, push the valid tile to the top
+			validTiles.push(data.tileIndex);
+		} else { // otherwise remove the tile from the list of valid tiles
+			validTiles.splice(validTiles.indexOf(data.tileIndex), 1); 
+		}
 	});
 
 	// handle graceful disconnection 

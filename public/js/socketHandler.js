@@ -8,6 +8,9 @@ var Packet = {
 	USER_JOIN: 4,
 	ADMIN_AUTH_NEW: 5,
 	ADMIN_AUTH_RESPONSE: 6,
+	USER_CHECK_GAME: 7,
+	USER_CHECK_RESPONSE: 8,
+	ADMIN_VALID_TILE: 9,
 };
 var user;
 var socket = io.connect('http://localhost:1234'); // change to IP of server in production
@@ -22,7 +25,6 @@ var socket = io.connect('http://localhost:1234'); // change to IP of server in p
  * Otherwise sets game logic, calls gameboard setup function and removes the login el
  */ 
 socket.on(Packet.USER_AUTH_RESPONSE, function (data) {
-	console.log(data.session);
 	if(data.err) {
 		displayError(data.err);
 		$('.login').find('h3').css({ 'text-align': 'center' });
@@ -62,11 +64,16 @@ socket.on(Packet.USER_JOIN, function (data) {
  */ 
 socket.on(Packet.ADMIN_AUTH_RESPONSE, function (data) {
 	console.log('on ADMIN_AUTH_RESPONSE');
+	console.log(data);
 	if(data.err) {
 		displayError(data.err);
 		return;
 	} else if ( data.success ) {
 		adminSetup();
+		$userName = $('<span>', { class: 'message-username', text: data.user.name }).css({'color': data.user.color});
+		$join = $('<p>', { class: 'message-content', text: ' joined the chat' }).prepend($userName);
+		$li = $('<li>', {class: 'message'}).append($join);
+		$('#messages').append($li);
 		$('.login').fadeOut('fast');
 	}
 });
@@ -82,4 +89,12 @@ socket.on(Packet.CHAT_MESSAGE, function (data) {
 	$li = $('<li>', {class: 'message'}).append($message);
 	$('#messages').append($li);
 	window.scrollTo(0, document.body.scrollHeight); // always scrolls to the bototm to show new messages
+});
+
+socket.on(Packet.USER_CHECK_RESPONSE, function (data) {
+	if(data.err) {
+		console.log(data.tiles);
+	} else {
+		alert('You are a winner!');
+	}
 });

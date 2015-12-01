@@ -461,13 +461,13 @@ span {
   animation-name: fadeOutDown; }
 
 /* Clearfix */
-.clearfix, .clearfix:before, .clearfix:after, .game-content .game-container, .game-content .game-container .grid-container, .grid-row {
+.clearfix, .clearfix:before, .clearfix:after, .game-content .game-container, .game-content .game-container .grid-container, .grid-row, .admin-grid-row, .admin-grid-container {
   zoom: 1; }
-  .clearfix:before, .game-content .game-container:before, .game-content .game-container .grid-container:before, .grid-row:before, .clearfix:after, .game-content .game-container:after, .game-content .game-container .grid-container:after, .grid-row:after {
+  .clearfix:before, .game-content .game-container:before, .game-content .game-container .grid-container:before, .grid-row:before, .admin-grid-row:before, .admin-grid-container:before, .clearfix:after, .game-content .game-container:after, .game-content .game-container .grid-container:after, .grid-row:after, .admin-grid-row:after, .admin-grid-container:after {
     content: "\0020";
     display: block;
     height: 0; }
-  .clearfix:after, .game-content .game-container:after, .game-content .game-container .grid-container:after, .grid-row:after {
+  .clearfix:after, .game-content .game-container:after, .game-content .game-container .grid-container:after, .grid-row:after, .admin-grid-row:after, .admin-grid-container:after {
     clear: both; }
 
 .hidden {
@@ -544,7 +544,6 @@ body {
     padding: 15px;
     border-radius: 3px;
     float: left;
-    position: fixed;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -568,12 +567,12 @@ body {
     -o-transform: translate(-50%, 0);
     transform: translate(-50%, 0); }
 
-.grid-row {
+.grid-row, .admin-grid-row {
   float: left;
   margin-bottom: 15px; }
-  .grid-row:last-child {
+  .grid-row:last-child, .admin-grid-row:last-child {
     margin-bottom: 0; }
-  .grid-row .grid-cell {
+  .grid-row .grid-cell, .admin-grid-row .grid-cell, .admin-grid-row .admin-grid-cell {
     height: 108px;
     width: 108px;
     display: block;
@@ -583,11 +582,11 @@ body {
     margin-right: 15px;
     background-color: #8BB6B0;
     text-align: center; }
-    .grid-row .grid-cell:last-child {
+    .grid-row .grid-cell:last-child, .admin-grid-row .grid-cell:last-child, .admin-grid-row .admin-grid-cell:last-child {
       margin-right: 0; }
-    .grid-row .grid-cell:hover {
+    .grid-row .grid-cell:hover, .admin-grid-row .grid-cell:hover, .admin-grid-row .admin-grid-cell:hover {
       cursor: pointer; }
-  .grid-row .cell-data {
+  .grid-row .cell-data, .admin-grid-row .cell-data, .admin-grid-row .admin-cell-data {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -599,6 +598,28 @@ body {
     text-align: center;
     width: 90%;
     font-size: 0.875em; }
+
+.admin-tiles-container {
+  width: 95%;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+
+.admin-grid-row .admin-cell-data {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
 
 .slideIn {
   -webkit-transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);

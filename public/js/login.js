@@ -80,6 +80,8 @@ function submitPassword(event) {
 		event.preventDefault();
 		socket.emit(Packet.ADMIN_AUTH_NEW, {
 			'password': $('.admin-password').val(),
+			'userName': 'Admin',
+			'color': colors[Math.floor(Math.random() * (colors.length))],
 		});
 	}
 }
