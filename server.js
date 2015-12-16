@@ -49,10 +49,10 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-// Mounts our app to send GET requests for everything in public directory
-app.use(express.static(__dirname + '/public'));
+// Mounts our app to send GET requests for everything in app directory
+app.use(express.static(__dirname + '/app'));
 
-// Redirects all '/' routes directly to /public/index.html
+// Redirects all '/' routes directly to /app/index.html
 app.get('/', function(req, res){
 	var options = {
 		dotfiles: 'allow'
@@ -60,17 +60,17 @@ app.get('/', function(req, res){
 	res.sendFile(__dirname + '/index.html', options);
 });
 
-// Route for /public/admin.html
+// Route for /app/admin.html
 app.get('/admin', function(req, res) {
 	var options = {
 		dotfiles: 'allow'
 	}
-	res.sendFile(__dirname + '/public/admin.html', options);	
+	res.sendFile(__dirname + '/app/admin.html', options);	
 });
 
 var server = http.createServer(app);
 server.listen((process.env.PORT || port), function() {
-	debug_http('Started connect web server running on localhost:' + (process.env.PORT || port));
+	console.log('Started connect web server running on localhost:' + (process.env.PORT || port));
 });
 var sio = io.listen(server);
 var validTiles = [];
