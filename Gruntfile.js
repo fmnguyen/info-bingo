@@ -4,10 +4,10 @@
  */
 'use strict';
 var LIVERELOAD_PORT = 35729;
-var lrSnippet = require('connect-livereload')();
+/*var lrSnippet = require('connect-livereload')();
 var mountFolder = function(connect, dir) {
-  return connect.static(require('path').resolve(dir));
-};
+ return connect.static(require('path').resolve(dir));
+};*/
 
 
 module.exports = function(grunt) {
